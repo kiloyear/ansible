@@ -1,0 +1,2 @@
+ansible test1 -m copy -a "src=/root/.ssh/id_rsa_tifan.pub dest=/tmp/id_rsa_tifan.pub" --ask-pass -c paramiko
+ansible test1 -m shell -a "cat /tmp/id_rsa_tifan.pub >> /root/.ssh/authorized_keys" --ask-pass -c paramiko
