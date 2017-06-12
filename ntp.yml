@@ -1,0 +1,11 @@
+---
+- name: install ntp_bg
+  hosts: config 
+  user: root
+  tasks:
+    - name: yum install ntp
+      yum: name=ntp state=latest
+    - name: modify ntp conf
+      script: files/ntp/ntp_bg.sh
+    - name: start ntp service
+      service: name=ntpd state=started
