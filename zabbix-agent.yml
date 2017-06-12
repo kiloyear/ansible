@@ -1,16 +1,16 @@
 ---
 - name: install zabbix-agent
-  hosts: emp 
+  hosts: config
   user: root
   tasks:
     - name: copy zabbix_get file
-      copy: src=files/zabbix-agent/bin/zabbix_get dest=/bin/ mode=0755
+      copy: src=files/zabbix3.0/bin/zabbix_get dest=/bin/ mode=0755
     - name: copy zabbix_sender file
-      copy: src=files/zabbix-agent/bin/zabbix_sender dest=/bin/ mode=0755
+      copy: src=files/zabbix3.0/bin/zabbix_sender dest=/bin/ mode=0755
     - name: copy zabbix_agentd file
-      copy: src=files/zabbix-agent/sbin/zabbix_agentd dest=/sbin/ mode=0755
+      copy: src=files/zabbix3.0/sbin/zabbix_agentd dest=/sbin/ mode=0755
     - name: copy zabbix_agentd.conf file
-      copy: src=files/zabbix-agent/conf/zabbix_agentd.conf dest=/etc/zabbix/
+      copy: src=files/zabbix3.0/conf/zabbix_agentd.conf dest=/etc/zabbix/
     - name: groupadd zabbix
       group: name=zabbix
     - name: useradd zabbix
@@ -23,3 +23,5 @@
           dest=/etc/zabbix/zabbix_agentd.d/ state=directory owner=zabbix group=zabbix
     - name: start zabbix-agent
       shell: zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf
+    - name: add zabbix-agent to rc.local
+      script: files/zabbix3.0/zabbixrclocal.sh
