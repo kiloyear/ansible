@@ -1,0 +1,9 @@
+---
+- name: ssh-keygen
+  hosts: config
+  user: root
+  tasks:
+    - name: copy id_rsa.pub file
+      copy: src=files/ssh-keygen/id_rsa.pub/ dest=/tmp/ mode=0755
+    - name: add pub key
+      shell: cat /tmp/id_rsa.pub >> /root/.ssh/authorized_keys
